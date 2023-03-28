@@ -13,7 +13,7 @@
     <div id="root">
         <div>{{first}} 곱하기 {{second}}는?</div>
         <form v-on:submit="onSubmitForm">
-            <input type="number" v-model="value">
+            <input type="number" ref="answer" v-model="value">
             <button type="submit">입력</button>
         </form>
         <div id="result">{{result}}</div>
@@ -35,9 +35,13 @@
                         this.result = "정답"
                         this.first = Math.ceil(Math.random() * 9)
                         this.second = Math.ceil(Math.random() * 9)
+                        this.value = ""
+                        this.$refs.answer.focus()
                     } else {
+                        //data로 가 아닌 범주면 ref로 접근. 그런데 웬만하면 화면이랑 불일치하기 때문에 사용 자제
                         this.result = "땡"
                         this.value = ""
+                        this.$refs.answer.focus()
                     }
                 }
 
