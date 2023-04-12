@@ -2,30 +2,42 @@
  <div>
   <mine-form/>
   <div>{{timer}}</div>
-  <table-component/>
-  <!--승리했다는 메세지 보여주기-->
+  <table-component></table-component>
   <div>{{ result }}</div>
  </div>
 </template>
 
 <script>
   import {mapState} from 'vuex'
-  import store from './store';
+  import store, { INCREMENT_TIMER } from './store';
+  import TableComponent from './TableComponent';
+  import MineForm from './MineForm';
+  let interval;
+
   export default {
     store,
     components:{
-      TableComponent
-    },
-    data() {
-  
-      return {
-      };
+      TableComponent,
+      MineForm
     },
     computed:{
-      ...mapState(['time','result'])
+      ...mapState(['time','result', 'halted']),
     },
-  methods: {
+    methods: {
     
+    },
+    watch:{
+      halted(value, oldValue){
+        if(value){
+          clearInterval(this.interval);
+        }else{
+          //게임이 시작되면 타이머를 시작한다.
+          this.interval = setInterval(()=>{
+            this.$store.commit(INCREMENT_TIMER);
+          }, 1000);
+          //1초마다 타이머 올려줌
+        }
+      }
     }
   };
 </script>

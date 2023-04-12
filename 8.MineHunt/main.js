@@ -1,4 +1,4 @@
 import Vue from "vue";
-import TicTacToeEventBus from "./TicTacToeEventBus";
+import MineSweeper from "./MineSweeper";
 
-new Vue(TicTacToeEventBus).$mount("#root");
+new Vue(MineSweeper).$mount("#root");
